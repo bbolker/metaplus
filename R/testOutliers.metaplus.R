@@ -1,8 +1,8 @@
 testOutliers <-
   ## Short form for generic function 
-  function(object,R=999) UseMethod("testOutliers")
+  function(object,R=999, ...) UseMethod("testOutliers")
 
-testOutliers.metaplus <- function(object,R=999) {
+testOutliers.metaplus <- function(object,R=999, ...) {
   if (!inherits(object, "metaplus"))
     stop("Use only with 'metaplus' objects.\n")
 
@@ -10,8 +10,8 @@ testOutliers.metaplus <- function(object,R=999) {
   
   if (object$random=="normal") stop("cant test for outliers with normal random effects model")
   testOutliers <- switch(object$random,
-                "t-dist"=testOutliers.profilet.metaplus(object,R),
-                "mixture"=testOutliers.profilemix.metaplus(object,R))
+                "t-dist"=testOutliers.profilet.metaplus(object,R, ...),
+                "mixture"=testOutliers.profilemix.metaplus(object,R, ...))
   class(testOutliers) <- "testOutliers"
   return(testOutliers)
 }

@@ -1,4 +1,4 @@
-testOutliers.profilet.metaplus <- function(object,R=999) {
+testOutliers.profilet.metaplus <- function(object,R=999, ...) {
    
   meta.fun <- function(data) {    
 
@@ -38,7 +38,7 @@ testOutliers.profilet.metaplus <- function(object,R=999) {
   meta.ml <- rma(yi=object$yi, sei=object$sei, mods=object$mods, method="ML")
 
   meta.boot <- boot(data=cbind(object$yi,object$sei,object$mods), meta.fun,
-       R = R, sim = "parametric", ran.gen = meta.rg, mle=meta.ml)
+       R = R, sim = "parametric", ran.gen = meta.rg, mle=meta.ml, ...)
   
 #   RR <- rep(floor(R/ncpus),ncpus)
 #   RR[1] <- R-floor(R/ncpus)*(ncpus-1)

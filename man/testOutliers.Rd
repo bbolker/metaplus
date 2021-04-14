@@ -1,7 +1,6 @@
 \name{testOutliers}
 \alias{testOutliers}
 \alias{testOutliers.metaplus}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Tests for the presence of outliers.
 }
@@ -32,6 +31,15 @@ Ken Beath <ken.beath@mq.edu.au>
 \dontrun{
 cdp3 <- metaplus(cdp$yi,cdp$sei,plotci=TRUE,slab=cdp$study,random="mixture")
 summary(testOutliers(cdp3))
+##
+system.time(cdp3_t <- metaplus(cdp$yi,cdp$sei,plotci=TRUE,slab=cdp$study,random="t-dist")) ## 42 seconds
+system.time(to1 <- testOutliers(cdp3_t, R=50)) ## 44 seconds
+system.time(to2 <- testOutliers(cdp3_t, R=50, parallel="multicore", ncpus=8)) ## 20 seconds
+system.time(to3 <- testOutliers(cdp3_t, R=250)) ## 290 seconds
+system.time(to4 <- testOutliers(cdp3_t, R=250, parallel="multicore", ncpus=8)) ## 48 seconds
+
+summary(to1)
+
 }
 }
 \keyword{methods}
